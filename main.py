@@ -58,30 +58,30 @@ def pearson_coefficient(x, y):
 
     return round(upper_side / math.sqrt(lower_side), 2)
 
-# Get the data from the input
+# Ensure the code executes only when the main.py file is run direct and not from an import
+if __name__ == '__main__':
+    # Uncomment this if you are running from hacker rank / Reading from input
+    # data = sys.stdin.readlines()
 
-# Uncomment this if you are running from hacker rank / Reading from input
-# data = sys.stdin.readlines()
+    # Comment this if you are running from hacker rank / Reading from the data.dat file
+    with open("data.dat") as data:
+        # Loop to get the data
+        lines = [line.split() for line in data]
 
-# Comment this if you are running from hacker rank / Reading from the data.dat file
-with open("data.dat") as data:
-    # Loop to get the data
-    lines = [line.split() for line in data]
+    # Removing the first line that is the number of students
+    lines.pop(0)
 
-# Removing the first line that is the number of students
-lines.pop(0)
+    # Make sure the a single line has no less than 3 values. i.e maths, chemistry, physics
+    lines = format_all_lines(lines)
 
-# Make sure the a single line has no less than 3 values. i.e maths, chemistry, physics
-lines = format_all_lines(lines)
+    # Get the first 3 rows required
+    maths = [handle_value(row[0]) for row in lines]
+    physics = [handle_value(row[1]) for row in lines]
+    chemistry = [handle_value(row[2]) for row in lines]
 
-# Get the first 3 rows required
-maths = [handle_value(row[0]) for row in lines]
-physics = [handle_value(row[1]) for row in lines]
-chemistry = [handle_value(row[2]) for row in lines]
+    # print("Maths list is: ", maths, "\n Chemistry list is: ", chemistry,
+    #       "\n Physics list is: ", physics, "\n")
 
-# print("Maths list is: ", maths, "\n Chemistry list is: ", chemistry,
-#       "\n Physics list is: ", physics, "\n")
-
-print(pearson_coefficient(maths, physics))
-print(pearson_coefficient(physics, chemistry))
-print(pearson_coefficient(chemistry, maths))
+    print(pearson_coefficient(maths, physics))
+    print(pearson_coefficient(physics, chemistry))
+    print(pearson_coefficient(chemistry, maths))
